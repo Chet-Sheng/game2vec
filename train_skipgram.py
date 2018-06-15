@@ -24,6 +24,7 @@ vocabulary_size = len(idx_to_game)
 
 # 2. Create training data set. Games for a single user will be similar to sentences in text.
 #    A single user game set is considered as a context.
+# pre_data: a {user: {games}} dictionary
 pre_data = {}
 for index, row in csv.iterrows():
     if row.user_id not in pre_data:
