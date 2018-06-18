@@ -89,7 +89,8 @@ def generate_batch_data(game_sets, batch_size):
 
     return batch_data, label_data
 
-
+# sample_batch_data: [targets]
+# sample_label_data: [contexts]
 sample_batch_data, sample_label_data = generate_batch_data(data, 8)
 for x, y in zip(sample_batch_data, sample_label_data):
     print(x, '->', y)
