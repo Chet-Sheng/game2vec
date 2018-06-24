@@ -55,24 +55,29 @@ for x in random_user_sample:
 # 3. Batch generating function
 # Generate data randomly
 def generate_batch_data(game_sets, batch_size):
+    '''这个算法还是可以的，照顾了长句子，长句子选词比短句子多。
+    但是长句子和短句子uniform抽取这个不合理. 并且跑一次，一个长句子只有一个target word'''
     # Fill up data batch
     batch_data = []
     label_data = []
     while len(batch_data) < batch_size:
         # select random set to start, skip sets smaller than 3
+        # choose sentence:
         rand_list = random.choice(game_sets)
         random.shuffle(rand_list)
         if len(rand_list) < 3:
             continue
         # Randomly select a game from the set as the target
+        # choose targets:
         label = random.choice(rand_list)
         tuples = []
+        # choose 2 context words:
         for x in rand_list:
             for y in rand_list:
                 if x != label and y != label and x != y:
                     tuples.append((label, x))
                     tuples.append((label, y))
-            if len(tuples) > batch_size:
+            if len(tuples) > batch_size: # 这边一次append两个，可能已经超过了batch_size
                 break
 
         # extract batch and labels
